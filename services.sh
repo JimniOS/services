@@ -3,15 +3,30 @@
 #array of services (searx, whoogle, matrix)
 
 services=(searx whoogle matrix)
+# help function
+function help {
+    echo "Usage: ./start.sh <start | stop | restart | status | setup> <service name>"
+    echo "Services:"
+    for i in "${services[@]}"
+    do
+        echo "  $i"
+    done
+}
 
 # if <start | stop | restart | status> is not specified, then print error
 if [ -z "$1" ]; then
     echo "Error: command is not specified"
+    help
     exit 1
+fi
+if [[ "$1" = "help" || "$1" = "-h" || "$1" = "--help" ]]; then
+    help
+    exit 0
 fi
 # if <start | stop | restart | status...> is not valid, then print error
 if [[ "$1" != "start" && "$1" != "stop" && "$1" != "restart" && "$1" != "setup" && "$1" != "status" && "$1" != "logs" ]]; then
     echo "Error: command is not valid"
+    help
     exit 1
 fi
 # if setup is specified, then run setup.sh
@@ -32,10 +47,12 @@ fi
 # if <service name> is not specified, then print error
 if [ -z "$2" ]; then
     echo "Error: service name is not specified"
+    help
     exit 1
 fi
 if [[ ! " ${services[@]} " =~ " $2 " ]]; then
     echo "Error: service name is not valid"
+    help
     exit 1
 fi
 # for searx
