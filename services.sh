@@ -75,10 +75,10 @@ if [ "$2" = "searx" ]; then
         docker-compose logs -f
     fi
 fi
-# for matrix; docker run -it --rm --name synapse -v $PWD/matrix/data:/data -p 8008:8008 -e SYNAPSE_SERVER_NAME=matrix.jimni.live -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
+# for matrix; 
 if [ "$2" = "matrix" ]; then
     if [ "$1" = "start" ]; then
-        docker run -it --rm -d --name synapse -v $PWD/matrix/data:/data -p 8008:8008 -e SYNAPSE_SERVER_NAME=matrix.jimni.live -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest
+        docker run -it --rm -d --name synapse -v $PWD/matrix/data:/data -p 8008:8008 matrixdotorg/synapse:latest
     elif [ "$1" = "stop" ]; then
         docker stop synapse
     elif [ "$1" = "restart" ]; then
