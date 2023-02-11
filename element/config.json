@@ -28,7 +28,7 @@
     "show_labs_settings": false,
     "features": {},
     "default_federate": true,
-    "default_theme": "light",
+    "default_theme": "dark",
     "room_directory": {
         "servers": ["matrix.jimni.live","matrix.org"]
     },
