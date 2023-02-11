@@ -2,7 +2,7 @@
 # usage : ./start.sh <start | stop | restart | status | setup> <service name>
 #array of services (searx, whoogle, matrix)
 
-services=(searx whoogle matrix)
+services=(searx whoogle matrix element)
 # help function
 function help {
     echo "Usage: ./start.sh <start | stop | restart | status | setup> <service name>"
@@ -78,7 +78,7 @@ fi
 # for matrix; 
 if [ "$2" = "matrix" ]; then
     if [ "$1" = "start" ]; then
-        docker run -it --rm -d --name synapse -v $PWD/matrix/data:/data -p 8008:8008 matrixdotorg/synapse:latest
+        docker run -it --rm -d --name synapse -v $PWD/matrix/data:/data -e SYNAPSE_SERVER_NAME=matrix.jimni.live -e SYNAPSE_SERVER_NAME -p 8008:8008 matrixdotorg/synapse:latest
     elif [ "$1" = "stop" ]; then
         docker stop synapse
     elif [ "$1" = "restart" ]; then
@@ -87,6 +87,21 @@ if [ "$2" = "matrix" ]; then
         docker ps | grep synapse
     elif [ "$1" = "logs" ]; then
         docker logs -f synapse
+    fi
+fi
+
+# for element; docker run -p 80:80 -v /etc/element-web/config.json:/app/config.json vectorim/element-web
+if [ "$2" = "element" ]; then
+    if [ "$1" = "start" ]; then
+        docker run -it --rm -d --name element -v $PWD/element/config.json:/app/config.json -p 8009:80 vectorim/element-web
+    elif [ "$1" = "stop" ]; then
+        docker stop element
+    elif [ "$1" = "restart" ]; then
+        docker restart element
+    elif [ "$1" = "status" ]; then
+        docker ps | grep element
+    elif [ "$1" = "logs" ]; then
+        docker logs -f element
     fi
 fi
     
