@@ -12,4 +12,5 @@ bash services.sh start/stop/restart/logs <service_name>
 ```
 
 ### Services
-`searx` - searxng-docker search engine
+`searx` - searxng-docker search engine <br />
+`matrix` - synapse matrix homeserver
